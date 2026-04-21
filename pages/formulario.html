@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/main.css">
+    <title>Pago</title>
+    <!-- descripcion de la pagina -->
+    <meta name="description" content="En este apartado se podran ver los distintos inmuebles, tanto si estan disponibles como si no, y un enlace que les brinde la informacion mas relevante del mismo">
+    <!-- palabras clave -->
+    <meta name="keywords" content="inmobiliaria, alquileres, casas, departamentos, ciudad">
+    <!-- autor de la pagina -->
+    <meta name="author" content="Santiago Schapira">
+</head>
+<body>
+    <!-- encabezado con logo y links-->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="../index.html">
+                    <!-- logo creado con canvas -->
+                    <img class="logo" src="../img_buena/logo.jpeg" alt="Logo de Inmuebles de Bella Vista" width="50">
+                </a>
+
+                <!-- Botón hamburguesa -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Menú -->
+                <div class="collapse navbar-collapse" id="menuNav">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="../index.html">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="formulario.html">Formulario</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="acercaNosotros.html">Acerca de Nosotros</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contactos.html">Contactos</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </nav>
+    </header>
+
+    <!-- contenido -->
+
+    <main>
+        <h2>Formulario de contacto</h2><br>
+        <form id="form-inscripcion">
+            <label for="nombre">Nombre</label>
+            <input type="text" name="nombre" id="nombre" placeholder="Nombre" required>
+            <br>
+            <label class="separarMasChico" for="apellido">Apellido</label>
+            <input type="text" name="apellido" id="apellido" placeholder="Apellido" required>
+            <br>
+            <label class="separarMasChico" for="ciudad">Ciudad</label>
+            <input type="text" name="ciudad" id="ciudad" placeholder="Ciudad" required>
+            <br>
+            <label class="separarMasChico" for="dni">DNI</label>
+            <input type="number" name="dni" id="dni" placeholder="DNI" required>
+            <br>
+             <label for="acompanantes">Viene acompañado por cuántas personas</label>
+            <input type="number" name="acompanantes" id="acompanantes" min="0" max="10" value="0" required>
+            <br>
+            <div id="acompanantes-campos"></div>
+            <div class="campo">
+                <label class="separarMasChico">Metodo de pago</label>
+                <input type="text" value="Mercado Pago" readonly>
+                <input type="hidden" name="metodo_pago" value="mercado_pago">
+            </div>
+            <br>
+            <a id="boton-pago" href="LINK_DE_PAGO_MERCADO_PAGO" target="_blank" class="boton-enviar">
+            Pagar con Mercado Pago
+            </a>
+            <br>
+            <button id="btn-registrar" class="separarMasChico botonEnviar" type="submit" disabled>Registrar pago</button>
+            <p id="mensaje-formulario" class="separarMasChico"></p>
+        </form>
+       
+    </main>
+
+    <!-- pie de pagina con links emergente a Instagram y Facebook -->
+    <footer>
+        <p >Todos los derechos reservados</p>
+        <a href="https://www.instagram.com/endurotoropi/" target="_blank">
+                <img class="logoInstagram" src="../img/insta.png" alt="Logo de Instagram">
+        </a>
+    </footer>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const LINK_PAGO_MERCADO_PAGO = "LINK_DE_PAGO_MERCADO_PAGO";
+        const formInscripcion = document.getElementById("form-inscripcion");
+        const mensajeFormulario = document.getElementById("mensaje-formulario");
+        const botonPago = document.getElementById("boton-pago");
+        const btnRegistrar = document.getElementById("btn-registrar");
+        const acompanantesInput = document.getElementById("acompanantes");
+        const acompanantesCampos = document.getElementById("acompanantes-campos");
+        let botonPagoConfigurado = false;
+        const pagoConfirmado = new URLSearchParams(window.location.search).get("pago") === "ok";
+
+        function mostrarMensaje(texto, tipo) {
+            mensajeFormulario.textContent = texto;
+            mensajeFormulario.classList.remove("mensaje-error", "mensaje-ok");
+            if (tipo === "error") {
+                mensajeFormulario.classList.add("mensaje-error");
+            }
+            if (tipo === "ok") {
+                mensajeFormulario.classList.add("mensaje-ok");
+            }
+        }
+
+        function limpiarMensaje() {
+            mensajeFormulario.textContent = "";
+            mensajeFormulario.classList.remove("mensaje-error", "mensaje-ok");
+        }
+
+        function setBotonPagoHabilitado(habilitado) {
+            if (habilitado) {
+                botonPago.classList.remove("boton-deshabilitado");
+                botonPago.setAttribute("aria-disabled", "false");
+                return;
+            }
+
+            botonPago.classList.add("boton-deshabilitado");
+            botonPago.setAttribute("aria-disabled", "true");
+        }
+
+        function configurarBotonPago() {
+            if (LINK_PAGO_MERCADO_PAGO === "LINK_DE_PAGO_MERCADO_PAGO") {
+                botonPago.removeAttribute("href");
+                botonPago.title = "Falta configurar el link de pago";
+                botonPagoConfigurado = false;
+                return;
+            }
+
+            botonPago.href = LINK_PAGO_MERCADO_PAGO;
+            botonPago.title = "Ir a pagar con Mercado Pago";
+            botonPagoConfigurado = true;
+        }
+
+        function formularioCompletoParaPagar() {
+            if (!formInscripcion.checkValidity()) {
+                return false;
+            }
+
+            const acompanantes = obtenerDatosAcompanantes();
+            return acompanantes.every((item) => item.nombre && item.dni);
+        }
+
+        function actualizarEstadoBotones() {
+            const puedePagar = botonPagoConfigurado && formularioCompletoParaPagar();
+            setBotonPagoHabilitado(puedePagar);
+            btnRegistrar.disabled = !(puedePagar && pagoConfirmado);
+        }
+
+        function obtenerDatosAcompanantes() {
+            const cantidad = Number.parseInt(acompanantesInput.value, 10) || 0;
+            const acompanantes = [];
+
+            for (let i = 1; i <= cantidad; i += 1) {
+                const nombre = document.getElementById(`acompanante_nombre_${i}`)?.value?.trim() || "";
+                const dni = document.getElementById(`acompanante_dni_${i}`)?.value?.trim() || "";
+                acompanantes.push({ nombre, dni });
+            }
+
+            return acompanantes;
+        }
+
+        async function registrarInscripcion(event) {
+            event.preventDefault();
+
+            if (btnRegistrar.disabled) {
+                mostrarMensaje("Completa el formulario y registra el pago confirmado antes de guardar.", "error");
+                return;
+            }
+
+            mostrarMensaje("Guardando datos...", "ok");
+
+            const payload = {
+                nombre: document.getElementById("nombre").value.trim(),
+                apellido: document.getElementById("apellido").value.trim(),
+                ciudad: document.getElementById("ciudad").value.trim(),
+                dni: document.getElementById("dni").value.trim(),
+                cantidadAcompanantes: Number.parseInt(acompanantesInput.value, 10) || 0,
+                acompanantes: obtenerDatosAcompanantes(),
+                metodoPago: "mercado_pago",
+                pagoConfirmado: true,
+            };
+
+            try {
+                const response = await fetch("/api/inscripciones", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(payload),
+                });
+
+                if (!response.ok) {
+                    throw new Error("No se pudo guardar la inscripcion.");
+                }
+
+                mostrarMensaje("Pago registrado correctamente. Tu inscripcion ya quedo guardada.", "ok");
+                btnRegistrar.disabled = true;
+            } catch (error) {
+                mostrarMensaje("Hubo un error al guardar tus datos. Intenta nuevamente.", "error");
+            }
+        }
+
+        function renderAcompanantes() {
+            const cantidad = Number.parseInt(acompanantesInput.value, 10) || 0;
+            const cantidadLimitada = Math.max(0, Math.min(10, cantidad));
+
+            acompanantesInput.value = cantidadLimitada;
+            acompanantesCampos.innerHTML = "";
+
+            for (let i = 1; i <= cantidadLimitada; i += 1) {
+                const wrapper = document.createElement("div");
+                wrapper.className = "separarMasChico";
+
+                wrapper.innerHTML = `
+                    <label for="acompanante_nombre_${i}">Nombre acompañante ${i}</label>
+                    <input type="text" id="acompanante_nombre_${i}" name="acompanantes[${i}][nombre]" placeholder="Nombre acompañante ${i}" required>
+                    <br>
+                    <label for="acompanante_dni_${i}">DNI acompañante ${i}</label>
+                    <input type="number" id="acompanante_dni_${i}" name="acompanantes[${i}][dni]" placeholder="DNI acompañante ${i}" required>
+                    <br>
+                `;
+
+                acompanantesCampos.appendChild(wrapper);
+            }
+
+            actualizarEstadoBotones();
+        }
+
+        formInscripcion.addEventListener("input", actualizarEstadoBotones);
+        acompanantesInput.addEventListener("input", renderAcompanantes);
+        botonPago.addEventListener("click", function (event) {
+            if (!formularioCompletoParaPagar()) {
+                event.preventDefault();
+                mostrarMensaje("Completa todos los datos antes de ir al pago.", "error");
+                return;
+            }
+
+            limpiarMensaje();
+
+            if (!botonPagoConfigurado) {
+                event.preventDefault();
+                alert("Todavia no esta configurado el link de pago de Mercado Pago.");
+                return;
+            }
+        });
+        formInscripcion.addEventListener("submit", registrarInscripcion);
+        configurarBotonPago();
+        renderAcompanantes();
+        actualizarEstadoBotones();
+
+        if (!pagoConfirmado) {
+            mostrarMensaje("El boton 'Registrar pago' se habilita cuando volves del pago con confirmacion.", "ok");
+        }
+    </script>
+</body>
+</html>

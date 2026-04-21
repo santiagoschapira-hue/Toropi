@@ -1,0 +1,28 @@
+{
+  "name": "desarrollo-web---inmobiliaria",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/santiagoschapira-hue/InmueblesBV.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/santiagoschapira-hue/InmueblesBV/issues"
+  },
+  "homepage": "https://github.com/santiagoschapira-hue/InmueblesBV#readme",
+  "devDependencies": {
+    "sass": "^1.97.3"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}

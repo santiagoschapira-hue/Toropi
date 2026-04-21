@@ -1,0 +1,202 @@
+@charset "UTF-8";
+/* Reset global */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body */
+body {
+  background-color: #481300;
+  color: whitesmoke;
+  font-family: Arial, sans-serif;
+}
+
+main {
+  text-align: center;
+  padding: 20px;
+  border: 1px solid #555;
+  /*animacion al cargar la pagina*/
+  animation: aparecer 0.8s ease-in;
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+footer {
+  padding: 20px;
+}
+footer p {
+  margin-top: 50px;
+}
+footer a img.logoInstagram, footer a img.logoFacebook {
+  width: 50px;
+  height: auto;
+}
+
+/* Header */
+header {
+  padding: 10px 20px;
+}
+header .nav-link {
+  list-style: none;
+  color: #EED9C4;
+  /*transition hace que un cambio sea suave,
+  color es la propiedad a cambiar y hover detecta
+  que el cursor esta sobre los links del
+  encabezado*/
+  transition: color 0.2s ease;
+}
+header .nav-link:hover {
+  color: #D4AF37;
+}
+
+.logo {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Secciones principales */
+.casaFeliz {
+  width: 150px;
+  height: auto;
+  margin-top: 50px;
+  /*transition hace que un cambio sea sueve y 
+  transform es la propiedad a animar*/
+  transition: transform 0.2s ease;
+}
+.casaFeliz:hover {
+  transform: scale(1.05);
+}
+
+/* Inmuebles */
+.textoMainInmuebles {
+  text-align: left;
+}
+.textoMainInmuebles ul {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+  padding: 0;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.textoMainInmuebles ul li {
+  list-style: none;
+}
+
+.acercaNos {
+  text-align: left;
+  max-width: 700px;
+  margin-left: 60px;
+  margin-right: auto;
+}
+
+@media (min-width: 768px) {
+  .textoMainInmuebles ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.inmueblesDetalles {
+  text-align: left;
+  color: #D4AF37;
+}
+
+.casaFoto {
+  display: block;
+  margin-right: auto;
+  width: 100%;
+  max-width: 250px;
+  height: auto;
+  /*transition hace que un cambio sea sueve y 
+  transform es la propiedad a animar*/
+  transition: transform 0.2s ease;
+}
+.casaFoto:hover {
+  transform: scale(1.05);
+}
+
+/* Separadores */
+.separar {
+  margin-top: 50px;
+}
+
+.separarMasChico {
+  margin-top: 30px;
+}
+
+/* Formulario corrido a la izquierda */
+main form {
+  max-width: 520px;
+  margin-left: 60px;
+  margin-right: auto;
+  text-align: left;
+}
+
+@media (max-width: 767px) {
+  main form {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}
+
+/* Acerca de Nosotros */
+.acercaNosContactos {
+  color: #D4AF37;
+}
+
+/* Imágenes interiores casas */
+.livingCasa,
+.fotoPatio,
+.fotoCocina,
+.fotoBaño {
+  width: 100%;
+  max-width: 250px;
+  height: auto;
+  /*transition hace que un cambio sea sueve y 
+  transform es la propiedad a animar*/
+  transition: transform 0.2s ease;
+}
+.livingCasa:hover,
+.fotoPatio:hover,
+.fotoCocina:hover,
+.fotoBaño:hover {
+  transform: scale(1.05);
+}
+
+/* Grids de detalles */
+/* Grids de detalles */
+.imagenes-grid-2 ul,
+.imagenes-grid-3 ul {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+  padding: 0;
+  list-style: none;
+}
+
+/*diseño adaptable(responsive)*/
+@media (min-width: 768px) {
+  .imagenes-grid-2 ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .imagenes-grid-3 ul {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+/* Contactos */
+.wpp {
+  width: 70px;
+  height: auto;
+  margin-top: 20px;
+}
+
+/*# sourceMappingURL=main.css.map */
